@@ -23,7 +23,7 @@ def call(String state, String description, String context = 'jenkins/smartstock-
     try {
         withCredentials([string(credentialsId: 'github-token', variable: 'GH_TOKEN')]) {
             sh """
-                curl -sS -X POST \
+                curl -sS -X POST --retry 3 --retry-all-errors --retry-delay 2 \
                   -H "Authorization: Bearer \$GH_TOKEN" \
                   -H "Accept: application/vnd.github+json" \
                   https://api.github.com/repos/${repo}/statuses/${sha} \
