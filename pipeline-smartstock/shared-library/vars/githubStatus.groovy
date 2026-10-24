@@ -9,8 +9,8 @@ import groovy.json.JsonOutput
 def call(String state, String description, String context = 'jenkins/smartstock-ci') {
     String repo = env.GITHUB_REPO
     String sha  = env.STATUS_SHA ?: env.GIT_COMMIT
-    if (!repo || !sha) {
-        echo 'githubStatus: falta GITHUB_REPO o SHA, se omite la notificación'
+    if (!repo || !(sha ==~ /[0-9a-f]{40}/)) {
+        echo "githubStatus: GITHUB_REPO o SHA inválido ('${sha}'), se omite la notificación"
         return
     }
     String body = JsonOutput.toJson([
