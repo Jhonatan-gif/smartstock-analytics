@@ -1,0 +1,107 @@
+{
+  "success": true,
+  "totales": {
+    "totalProductos": 8,
+    "totalValorizacionCosto": 2129.75,
+    "totalValorizacionVenta": 3150.5,
+    "totalUnidadesRiesgo": 230
+  },
+  "data": [
+    {
+      "Categoria": "Lácteos",
+      "SKU": "PRD-003",
+      "producto": "Yogur Natural 400g",
+      "PrecioBase": 2.8,
+      "stockDisponible": 450,
+      "numeroLotes": 3,
+      "valorizacionCosto": 855,
+      "valorizacionVenta": 1260,
+      "unidadesRiesgo": 100,
+      "estado": "sobrestock"
+    },
+    {
+      "Categoria": "Lácteos",
+      "SKU": "PRD-002",
+      "producto": "Queso Mozzarella 500g",
+      "PrecioBase": 4.5,
+      "stockDisponible": 200,
+      "numeroLotes": 2,
+      "valorizacionCosto": 620,
+      "valorizacionVenta": 900,
+      "unidadesRiesgo": 0,
+      "estado": "normal"
+    },
+    {
+      "Categoria": "Lácteos",
+      "SKU": "PRD-004",
+      "producto": "Mantequilla 250g",
+      "PrecioBase": 3.2,
+      "stockDisponible": 100,
+      "numeroLotes": 2,
+      "valorizacionCosto": 220,
+      "valorizacionVenta": 320,
+      "unidadesRiesgo": 0,
+      "estado": "normal"
+    },
+    {
+      "Categoria": "Bebidas",
+      "SKU": "PRD-006",
+      "producto": "Jugo de Naranja 1L",
+      "PrecioBase": 2.5,
+      "stockDisponible": 90,
+      "numeroLotes": 1,
+      "valorizacionCosto": 144,
+      "valorizacionVenta": 225,
+      "unidadesRiesgo": 0,
+      "estado": "normal"
+    },
+    {
+      "Categoria": "Lácteos",
+      "SKU": "PRD-005",
+      "producto": "Crema de Leche 200ml",
+      "PrecioBase": 2.1,
+      "stockDisponible": 95,
+      "numeroLotes": 2,
+      "valorizacionCosto": 133,
+      "valorizacionVenta": 199.5,
+      "unidadesRiesgo": 25,
+      "estado": "normal"
+    },
+    {
+      "Categoria": "Panadería",
+      "SKU": "PRD-007",
+      "producto": "Pan Integral 500g",
+      "PrecioBase": 1.8,
+      "stockDisponible": 80,
+      "numeroLotes": 2,
+      "valorizacionCosto": 88,
+      "valorizacionVenta": 144,
+      "unidadesRiesgo": 80,
+      "estado": "normal"
+    },
+    {
+      "Categoria": "Carnes",
+      "SKU": "PRD-008",
+      "producto": "Pollo Entero 1.5kg",
+      "PrecioBase": 6,
+      "stockDisponible": 10,
+      "numeroLotes": 1,
+      "valorizacionCosto": 40,
+      "valorizacionVenta": 60,
+      "unidadesRiesgo": 10,
+      "estado": "critico"
+    },
+    {
+      "Categoria": "Lácteos",
+      "SKU": "PRD-001",
+      "producto": "Leche Entera 1L",
+      "PrecioBase": 1.2,
+      "stockDisponible": 35,
+      "numeroLotes": 2,
+      "valorizacionCosto": 29.75,
+      "valorizacionVenta": 42,
+      "unidadesRiesgo": 15,
+      "estado": "normal"
+    }
+  ]
+}

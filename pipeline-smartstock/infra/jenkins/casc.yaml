@@ -1,0 +1,104 @@
+# =============================================================================
+#  Jenkins Configuration as Code (JCasC) — SmartStock CI
+#  Las variables ${...} vienen de infra/.env a través de docker-compose.yml.
+#  Al recrear el contenedor (docker compose up -d) se vuelve a aplicar todo.
+# =============================================================================
+jenkins:
+  systemMessage: "SmartStock CI · configurado con Jenkins Configuration as Code"
+  numExecutors: 4            # para que las etapas paralelas corran realmente en paralelo
+  mode: NORMAL
+  securityRealm:
+    local:
+      allowsSignup: false
+      users:
+        - id: "${JENKINS_ADMIN_USER}"
+          password: "${JENKINS_ADMIN_PASSWORD}"
+  authorizationStrategy:
+    loggedInUsersCanDoAnything:
+      allowAnonymousRead: false
+
+credentials:
+  system:
+    domainCredentials:
+      - credentials:
+          - string:
+              scope: GLOBAL
+              id: "github-token"
+              description: "GitHub PAT para publicar commit statuses"
+              secret: "${GITHUB_TOKEN}"
+          - usernamePassword:
+              scope: GLOBAL
+              id: "github-user-pat"
+              description: "GitHub usuario + PAT para clonar (multibranch y Shared Library)"
+              username: "${GITHUB_USER}"
+              password: "${GITHUB_TOKEN}"
+          - string:
+              scope: GLOBAL
+              id: "sonar-token"
+              description: "Token de análisis de SonarQube"
+              secret: "${SONAR_TOKEN}"
+
+unclassified:
+  location:
+    url: "${JENKINS_URL}"
+  sonarGlobalConfiguration:
+    buildWrapperEnabled: false
+    installations:
+      - name: "sonarqube"                  # nombre que usa withSonarQubeEnv('sonarqube')
+        serverUrl: "http://sonarqube:9000"
+        credentialsId: "sonar-token"
+  globalLibraries:
+    libraries:
+      - name: "smartstock-shared-lib"
+        defaultVersion: "main"
+        implicit: false
+        allowVersionOverride: true
+        retriever:
+          modernSCM:
+            scm:
+              github:
+                id: "smartstock-shared-lib"
+                repoOwner: "${GITHUB_USER}"
+                repository: "smartstock-shared-lib"
+                repositoryUrl: "https://github.com/${GITHUB_USER}/smartstock-shared-lib"
+                configuredByUrl: false
+                credentialsId: "github-user-pat"
+                traits:
+                  - gitHubBranchDiscovery:
+                      strategyId: 3
+
+# Job multibranch creado con Job DSL: descubre ramas GitFlow y Pull Requests
+jobs:
+  - script: |
+      multibranchPipelineJob('smartstock-analytics') {
+        displayName('SmartStock Analytics')
+        description('Pipeline CI/CD (GitFlow) — Jenkinsfile en la raíz del repositorio')
+        branchSources {
+          branchSource {
+            source {
+              github {
+                id('smartstock-analytics')
+                repoOwner('${GITHUB_USER}')
+                repository('smartstock-analytics')
+                repositoryUrl('https://github.com/${GITHUB_USER}/smartstock-analytics')
+                configuredByUrl(false)
+                credentialsId('github-user-pat')
+                traits {
+                  gitHubBranchDiscovery { strategyId(1) }       // ramas (excepto las que ya tienen PR)
+                  gitHubPullRequestDiscovery { strategyId(1) }  // PRs fusionados con la rama destino
+                }
+              }
+            }
+          }
+        }
+        factory {
+          workflowBranchProjectFactory { scriptPath('Jenkinsfile') }
+        }
+        orphanedItemStrategy {
+          discardOldItems { numToKeep(20) }
+        }
+        triggers {
+          // Jenkins es local (sin webhook público): escanea GitHub cada minuto
+          periodicFolderTrigger { interval('1m') }
+        }
+      }

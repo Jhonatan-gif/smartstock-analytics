@@ -1,0 +1,13 @@
+{
+  "success": true,
+  "data": {
+    "token": "e2e-vip-token",
+    "usuario": {
+      "id": 4,
+      "nombre": "SuperVIP Corp",
+      "email": "vip@supercorp.com",
+      "rol": "Usuario",
+      "tipoNegocio": "VIP"
+    }
+  }
+}

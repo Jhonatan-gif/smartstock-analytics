@@ -3,7 +3,6 @@
 // ============================================================
 
 import React, { useEffect, useState } from 'react';
-import api from '../../utils/api';
 import MainLayout from '../../components/layout/MainLayout';
 
 const TIPO_LABELS = {
@@ -21,7 +20,6 @@ const TIPO_LABELS = {
 
 export default function AdminReglas() {
   const [reglas,  setReglas]  = useState([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // En producción esto requeriría un endpoint /api/pricing-rules
@@ -38,7 +36,6 @@ export default function AdminReglas() {
       { Id:9,  TipoRegla:'ALTA_DEMANDA',      Descripcion:'Recargo alta demanda (>100 ventas/7d)', FactorMultiplicador:1.1500, Prioridad:4, Activo:true },
       { Id:10, TipoRegla:'BAJA_DEMANDA',      Descripcion:'Descuento baja demanda (<10 ventas/7d)',FactorMultiplicador:0.9500, Prioridad:4, Activo:true },
     ]);
-    setLoading(false);
   }, []);
 
   // Agrupar por prioridad
