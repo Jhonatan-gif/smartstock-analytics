@@ -74,23 +74,27 @@ app.use((err, req, res, next) => {
 // ──────────────────────────────────────────────────────────────
 // Arranque
 // ──────────────────────────────────────────────────────────────
-const server = app.listen(PORT, () => {
-  console.log(`🚀 StockDinamico API corriendo en http://localhost:${PORT}`);
-  console.log(`📊 Entorno: ${process.env.NODE_ENV || 'development'}`);
-});
+// Solo escucha si se ejecuta directamente (node src/server.js);
+// al importarse desde los tests se usa la app sin abrir el puerto.
+if (require.main === module) {
+  const server = app.listen(PORT, () => {
+    console.log(`🚀 StockDinamico API corriendo en http://localhost:${PORT}`);
+    console.log(`📊 Entorno: ${process.env.NODE_ENV || 'development'}`);
+  });
 
-// Graceful shutdown
-process.on('SIGTERM', async () => {
-  console.log('📴 SIGTERM recibido, cerrando servidor...');
-  server.close(async () => {
+  // Graceful shutdown
+  process.on('SIGTERM', async () => {
+    console.log('📴 SIGTERM recibido, cerrando servidor...');
+    server.close(async () => {
+      await closePool();
+      process.exit(0);
+    });
+  });
+
+  process.on('SIGINT', async () => {
     await closePool();
     process.exit(0);
   });
-});
-
-process.on('SIGINT', async () => {
-  await closePool();
-  process.exit(0);
-});
+}
 
 module.exports = app;
