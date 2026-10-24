@@ -2,6 +2,7 @@
 
 Guía paso a paso para levantar Jenkins y SonarQube, ejecutar el pipeline y leer sus resultados.
 Para el diseño del pipeline (etapas, optimizaciones, GitFlow) ver [GUIA.md](GUIA.md).
+Para presentarlo en vivo, ver el guion [demo/DEMO.md](demo/DEMO.md).
 
 | Servicio | URL | Acceso |
 |---|---|---|
