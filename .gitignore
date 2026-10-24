@@ -3,7 +3,7 @@ node_modules/
 .pnp
 .pnp.js
 
-## Environment variables — NUNCA subir al repo
+## Environment variables — NUNCA subir al repo (incluye pipeline-smartstock/infra/.env)
 .env
 backend/.env
 frontend/.env
@@ -30,3 +30,9 @@ Thumbs.db
 *.njsproj
 *.sln
 *.sw?
+
+## CI: reportes de pruebas y cobertura
+coverage/
+reports/
+cypress/videos/
+cypress/screenshots/
