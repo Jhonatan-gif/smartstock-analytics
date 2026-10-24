@@ -13,3 +13,4 @@ pipeline-stage-view
 pipeline-graph-view
 configuration-as-code
 job-dsl
+lockable-resources
