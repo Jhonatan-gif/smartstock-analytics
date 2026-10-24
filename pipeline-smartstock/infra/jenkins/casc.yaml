@@ -95,7 +95,8 @@ jobs:
           workflowBranchProjectFactory { scriptPath('Jenkinsfile') }
         }
         orphanedItemStrategy {
-          discardOldItems { numToKeep(20) }
+          // ramas borradas y PRs cerrados se eliminan del job en el siguiente escaneo
+          discardOldItems { }
         }
         triggers {
           // Jenkins es local (sin webhook público): escanea GitHub cada minuto
