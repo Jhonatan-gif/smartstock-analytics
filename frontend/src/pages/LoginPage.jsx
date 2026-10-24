@@ -22,7 +22,7 @@ export default function LoginPage() {
       const destino = from || (usuario.rol === "Admin" ? "/admin/dashboard" : "/catalogo");
       navigate(destino, { replace: true });
     } catch (err) {
-      setError(err.response?.data?.error || "Error al iniciar sesion. Verifica tus credenciales.");
+      setError(err.response?.data?.error || "Error al iniciar sesión. Verifica tus credenciales.");
     } finally {
       setLoading(false);
     }
@@ -36,11 +36,11 @@ export default function LoginPage() {
             <span className="text-3xl">📦</span>
           </div>
           <h1 className="text-3xl font-bold text-white">StockDinamico</h1>
-          <p className="text-blue-200 mt-1">Gestion de Inventario con Precios Inteligentes</p>
+          <p className="text-blue-200 mt-1">Gestión de Inventario con Precios Inteligentes</p>
         </div>
 
         <div className="bg-white rounded-2xl shadow-2xl p-8">
-          <h2 className="text-xl font-semibold text-gray-800 mb-6">Iniciar Sesion</h2>
+          <h2 className="text-xl font-semibold text-gray-800 mb-6">Iniciar Sesión</h2>
 
           {error && (
             <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-700">
@@ -61,7 +61,7 @@ export default function LoginPage() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Contrasena</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Contraseña</label>
               <input
                 type="password"
                 value={password}
