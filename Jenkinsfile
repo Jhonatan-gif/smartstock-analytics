@@ -104,18 +104,23 @@ pipeline {
         }
 
         // ------------------------------------------------------------------ 4
-        stage('Análisis SonarQube') {
+        stage('SonarQube') {
             // Solo en PRs y ramas protegidas: en feature/* se prioriza feedback rápido
             when { beforeAgent true; expression { isProtectedBranch() || env.CHANGE_ID } }
-            agent { docker { image SONAR_IMAGE; args "--network ci-net --entrypoint=''"; reuseNode true } }
-            steps { sonarScan() }
-        }
-
-        stage('Quality Gate') {
-            when { expression { isProtectedBranch() || env.CHANGE_ID } }
-            steps {
-                timeout(time: 5, unit: 'MINUTES') {
-                    waitForQualityGate abortPipeline: true
+            // SonarQube Community analiza una sola rama por proyecto: dos análisis
+            // simultáneos se rechazan, así que se ejecutan de a uno
+            options { lock('sonarqube-smartstock') }
+            stages {
+                stage('Análisis SonarQube') {
+                    agent { docker { image SONAR_IMAGE; args "--network ci-net --entrypoint=''"; reuseNode true } }
+                    steps { sonarScan() }
+                }
+                stage('Quality Gate') {
+                    steps {
+                        timeout(time: 5, unit: 'MINUTES') {
+                            waitForQualityGate abortPipeline: true
+                        }
+                    }
                 }
             }
         }

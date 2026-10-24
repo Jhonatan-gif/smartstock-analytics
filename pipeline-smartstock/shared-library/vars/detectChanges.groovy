@@ -4,12 +4,14 @@
  *
  * - Ramas protegidas (main, develop, release/*, hotfix/*) -> siempre todo.
  * - Pull Requests -> diff contra la rama destino.
- * - feature/* -> diff contra el último commit exitoso de la rama.
+ * - feature/* -> diff contra el último commit exitoso de la rama; en su primer
+ *   build, contra la rama de la que nace (develop por defecto).
  * - Si cambian archivos globales (Jenkinsfile, sonar, etc.) -> todo.
  */
 def call(Map cfg = [:]) {
     List modules     = cfg.modules ?: ['backend', 'frontend']
     List globalPaths = cfg.globalPaths ?: ['Jenkinsfile', 'sonar-project.properties', 'docker-compose', '.github/']
+    String baseBranch = cfg.baseBranch ?: 'develop'
 
     boolean full = isProtectedBranch()
     String base = null
@@ -20,8 +22,11 @@ def call(Map cfg = [:]) {
             base = "origin/${env.CHANGE_TARGET}"
         } else if (env.GIT_PREVIOUS_SUCCESSFUL_COMMIT) {
             base = env.GIT_PREVIOUS_SUCCESSFUL_COMMIT
+        } else if (sh(script: "git fetch --no-tags origin +refs/heads/${baseBranch}:refs/remotes/origin/${baseBranch}",
+                      returnStatus: true) == 0) {
+            base = "origin/${baseBranch}" // primer build: lo que aporta la rama frente a develop
         } else {
-            full = true // primer build de la rama
+            full = true
         }
     }
 
