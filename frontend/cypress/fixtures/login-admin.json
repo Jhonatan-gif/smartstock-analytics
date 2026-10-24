@@ -1,0 +1,13 @@
+{
+  "success": true,
+  "data": {
+    "token": "e2e-admin-token",
+    "usuario": {
+      "id": 1,
+      "nombre": "Administrador Sistema",
+      "email": "admin@stockdinamico.com",
+      "rol": "Admin",
+      "tipoNegocio": "B2B"
+    }
+  }
+}
