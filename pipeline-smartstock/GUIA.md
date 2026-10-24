@@ -2,6 +2,8 @@
 
 Pipeline de entrega continua en **Jenkins** para SmartStock Analytics (Node.js/Express + React/Vite + SQL Server), basado en la estrategia de branching **GitFlow** y con las cuatro estrategias de optimización: ejecución paralela, caché, ejecución selectiva y pipelines modulares.
 
+> **¿Cómo lo ejecuto?** Ver el paso a paso en [INSTRUCTIVO.md](INSTRUCTIVO.md).
+
 ---
 
 ## 1. Estructura del entregable
@@ -53,6 +55,7 @@ smartstock-analytics/
 - Bloques `parallel` en **4 etapas**: instalación (backend ‖ frontend), calidad (ESLint backend ‖ ESLint frontend ‖ npm audit), pruebas (Jest ‖ Vitest) y build (bundle ‖ imagen backend ‖ imagen frontend).
 - `parallelsAlwaysFailFast()`: si una rama paralela falla, se cancelan las demás y no se desperdicia tiempo.
 - `disableConcurrentBuilds(abortPrevious: true)`: un push nuevo cancela el build anterior de la misma rama.
+- `lock('sonarqube-smartstock')` (Lockable Resources): SonarQube Community analiza una sola rama por proyecto, así que el análisis y el Quality Gate de distintas ramas se ejecutan de a uno; el resto del pipeline sigue en paralelo.
 
 ### 3.2 Caché
 | Qué se cachea | Dónde | Cómo |
@@ -61,13 +64,13 @@ smartstock-analytics/
 | Paquetes npm | `$JENKINS_HOME/.cache/npm` | Variable `npm_config_cache` + `npm ci --prefer-offline` en los *cache MISS*. |
 | Binario de Cypress (~500 MB) | `$JENKINS_HOME/.cache/Cypress` | Variable `CYPRESS_CACHE_FOLDER`. |
 | Plugins de SonarScanner | `$JENKINS_HOME/.cache/sonar` | `-Dsonar.userHome`. |
-| Capas Docker | daemon Docker | BuildKit + `--cache-from` + Dockerfiles que copian `package*.json` antes del código. |
+| Capas Docker | daemon Docker | BuildKit reutiliza las capas del mismo daemon; los Dockerfiles copian `package*.json` antes del código. `dockerBuild(cacheFrom: ...)` acepta una imagen de registro para agentes efímeros. |
 
 **Evidencia para el informe:** comparar el log del 1er build (`🐢 Cache MISS`) con el 2do (`♻️ Cache HIT`) y la duración de la etapa *Instalar dependencias*.
 
 ### 3.3 Ejecución selectiva (por ramas y etapas)
 - **Por rama:** `when { branch 'develop' }`, `when { expression { isProtectedBranch() } }`, `env.CHANGE_ID` para PRs.
-- **Por módulo:** `detectChanges()` compara contra la rama destino (PR) o el último commit exitoso (feature) y exporta `BACKEND_CHANGED` / `FRONTEND_CHANGED`. Si sólo cambió el frontend, todas las etapas del backend aparecen como *skipped*.
+- **Por módulo:** `detectChanges()` compara contra la rama destino (PR) o el último commit exitoso (feature; en su primer build, contra `develop`) y exporta `BACKEND_CHANGED` / `FRONTEND_CHANGED`. Si sólo cambió el frontend, todas las etapas del backend aparecen como *skipped*.
 - `beforeAgent true`: la condición se evalúa **antes** de levantar el contenedor, así una etapa omitida no descarga imágenes.
 
 ### 3.4 Pipelines modulares y reutilizables
