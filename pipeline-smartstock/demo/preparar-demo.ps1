@@ -75,9 +75,11 @@ try {
   $job = Invoke-RestMethod "$jenkins/job/smartstock-analytics/api/json?tree=jobs[name,color]" -Headers $jAuth
   Bien ("Ramas en Jenkins: " + (($job.jobs | ForEach-Object { [uri]::UnescapeDataString($_.name) }) -join ', '))
   $crumb = Invoke-RestMethod "$jenkins/crumbIssuer/api/json" -Headers $jAuth -SessionVariable js
-  Invoke-WebRequest "$jenkins/job/smartstock-analytics/build?delay=0" -Method Post -UseBasicParsing -WebSession $js `
-    -Headers ($jAuth + @{ $crumb.crumbRequestField = $crumb.crumb }) | Out-Null
-  Bien 'Escaneo del repositorio lanzado (Scan Repository Now)'
+  # Jenkins responde 302; no se sigue la redirección (PowerShell la seguiría sin la cabecera de autenticación)
+  $r = Invoke-WebRequest "$jenkins/job/smartstock-analytics/build?delay=0" -Method Post -UseBasicParsing -WebSession $js `
+    -Headers ($jAuth + @{ $crumb.crumbRequestField = $crumb.crumb }) -MaximumRedirection 0 -ErrorAction SilentlyContinue
+  if ($r.StatusCode -in 200, 201, 302) { Bien 'Escaneo del repositorio lanzado (Scan Repository Now)' }
+  else { Mal "No se pudo lanzar el escaneo (HTTP $($r.StatusCode))" }
 } catch { Mal "No se pudo consultar Jenkins ($($_.Exception.Message))" }
 
 # --- 6. Ramas de la demo en el repo local --------------------------------------
