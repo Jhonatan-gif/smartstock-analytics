@@ -1,0 +1,65 @@
+# Laboratorio CI local: Jenkins (configurado con JCasC) + SonarQube en la misma red (ci-net)
+# Uso:  cp .env.example .env   (completar tokens)
+#       docker compose up -d --build
+name: ci-lab
+
+services:
+  jenkins:
+    build: ./jenkins
+    container_name: jenkins
+    user: root                     # entorno de laboratorio: permite usar el socket Docker del host
+    ports:
+      - "${JENKINS_PORT:-8081}:8080"
+      - "50000:50000"
+    environment:
+      # Variables que lee jenkins/casc.yaml (Jenkins Configuration as Code)
+      JENKINS_URL:            "http://localhost:${JENKINS_PORT:-8081}/"
+      JENKINS_ADMIN_USER:     ${JENKINS_ADMIN_USER:-admin}
+      JENKINS_ADMIN_PASSWORD: ${JENKINS_ADMIN_PASSWORD:?Definir JENKINS_ADMIN_PASSWORD en infra/.env}
+      GITHUB_USER:            ${GITHUB_USER:?Definir GITHUB_USER en infra/.env}
+      GITHUB_TOKEN:           ${GITHUB_TOKEN:-}
+      SONAR_TOKEN:            ${SONAR_TOKEN:-}
+      DISCORD_WEBHOOK:        ${DISCORD_WEBHOOK:-}
+    volumes:
+      - jenkins_home:/var/jenkins_home          # aquí viven también las cachés (.cache/*)
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks: [ci]
+    restart: unless-stopped
+
+  sonarqube:
+    image: sonarqube:26.10.0.133078-community
+    container_name: sonarqube
+    ports:
+      - "9000:9000"
+    environment:
+      SONAR_ES_BOOTSTRAP_CHECKS_DISABLE: "true"
+    volumes:
+      - sonar_data:/opt/sonarqube/data
+      - sonar_extensions:/opt/sonarqube/extensions
+      - sonar_logs:/opt/sonarqube/logs
+    networks: [ci]
+    restart: unless-stopped
+
+  # Tarea única: registra en SonarQube el webhook hacia Jenkins (necesario para el
+  # Quality Gate). Se omite mientras SONAR_TOKEN esté vacío; es idempotente.
+  sonar-init:
+    image: curlimages/curl:8.10.1
+    container_name: sonar-init
+    depends_on: [sonarqube]
+    environment:
+      SONAR_TOKEN: ${SONAR_TOKEN:-}
+    volumes:
+      - ./sonar/sonar-init.sh:/sonar-init.sh:ro
+    entrypoint: ["/bin/sh", "/sonar-init.sh"]
+    networks: [ci]
+    restart: "no"
+
+networks:
+  ci:
+    name: ci-net
+
+volumes:
+  jenkins_home:
+  sonar_data:
+  sonar_extensions:
+  sonar_logs:

@@ -1,0 +1,332 @@
+{
+  "success": true,
+  "rol": "Admin",
+  "total": 8,
+  "data": [
+    {
+      "productoId": 6,
+      "SKU": "PRD-006",
+      "Nombre": "Jugo de Naranja 1L",
+      "Descripcion": "Jugo natural de naranja sin conservantes",
+      "Categoria": "Bebidas",
+      "PrecioBase": 2.5,
+      "stockDisponible": 90,
+      "stockBruto": 90,
+      "stockReservado": 0,
+      "numeroLotes": 1,
+      "valorCosto": 144,
+      "valorPrecioBase": 225,
+      "proximaFechaCaducidad": "2026-11-07T00:00:00.000Z",
+      "diasAlProximoVencimiento": 14,
+      "ventas7Dias": 0,
+      "estado": "normal",
+      "lotes": [
+        {
+          "loteId": 12,
+          "NumeroLote": "LOT-006-A",
+          "Cantidad": 90,
+          "CantidadReservada": 0,
+          "disponible": 90,
+          "FechaIngreso": "2026-10-19T06:23:44.5566667",
+          "FechaCaducidad": "2026-11-07",
+          "diasParaVencer": 14,
+          "CostoUnitario": 1.6
+        }
+      ]
+    },
+    {
+      "productoId": 8,
+      "SKU": "PRD-008",
+      "Nombre": "Pollo Entero 1.5kg",
+      "Descripcion": "Pollo fresco entero refrigerado aprox 1.5kg",
+      "Categoria": "Carnes",
+      "PrecioBase": 6,
+      "stockDisponible": 10,
+      "stockBruto": 10,
+      "stockReservado": 0,
+      "numeroLotes": 1,
+      "valorCosto": 40,
+      "valorPrecioBase": 60,
+      "proximaFechaCaducidad": "2026-10-28T00:00:00.000Z",
+      "diasAlProximoVencimiento": 4,
+      "ventas7Dias": 10,
+      "estado": "critico",
+      "lotes": [
+        {
+          "loteId": 15,
+          "NumeroLote": "LOT-008-A",
+          "Cantidad": 10,
+          "CantidadReservada": 0,
+          "disponible": 10,
+          "FechaIngreso": "2026-10-22T06:23:44.5600000",
+          "FechaCaducidad": "2026-10-28",
+          "diasParaVencer": 4,
+          "CostoUnitario": 4
+        }
+      ]
+    },
+    {
+      "productoId": 5,
+      "SKU": "PRD-005",
+      "Nombre": "Crema de Leche 200ml",
+      "Descripcion": "Crema de leche para cocinar 35% grasa",
+      "Categoria": "Lácteos",
+      "PrecioBase": 2.1,
+      "stockDisponible": 95,
+      "stockBruto": 95,
+      "stockReservado": 0,
+      "numeroLotes": 2,
+      "valorCosto": 133,
+      "valorPrecioBase": 199.5,
+      "proximaFechaCaducidad": "2026-10-30T00:00:00.000Z",
+      "diasAlProximoVencimiento": 6,
+      "ventas7Dias": 0,
+      "estado": "caducidad_urgente",
+      "lotes": [
+        {
+          "loteId": 10,
+          "NumeroLote": "LOT-005-A",
+          "Cantidad": 25,
+          "CantidadReservada": 0,
+          "disponible": 25,
+          "FechaIngreso": "2026-10-12T06:23:44.5566667",
+          "FechaCaducidad": "2026-10-30",
+          "diasParaVencer": 6,
+          "CostoUnitario": 1.4
+        },
+        {
+          "loteId": 11,
+          "NumeroLote": "LOT-005-B",
+          "Cantidad": 70,
+          "CantidadReservada": 0,
+          "disponible": 70,
+          "FechaIngreso": "2026-10-21T06:23:44.5566667",
+          "FechaCaducidad": "2026-11-18",
+          "diasParaVencer": 25,
+          "CostoUnitario": 1.4
+        }
+      ]
+    },
+    {
+      "productoId": 1,
+      "SKU": "PRD-001",
+      "Nombre": "Leche Entera 1L",
+      "Descripcion": "Leche entera pasteurizada de 1 litro",
+      "Categoria": "Lácteos",
+      "PrecioBase": 1.2,
+      "stockDisponible": 35,
+      "stockBruto": 35,
+      "stockReservado": 0,
+      "numeroLotes": 2,
+      "valorCosto": 29.75,
+      "valorPrecioBase": 42,
+      "proximaFechaCaducidad": "2026-10-29T00:00:00.000Z",
+      "diasAlProximoVencimiento": 5,
+      "ventas7Dias": 70,
+      "estado": "caducidad_urgente",
+      "lotes": [
+        {
+          "loteId": 1,
+          "NumeroLote": "LOT-001-A",
+          "Cantidad": 15,
+          "CantidadReservada": 0,
+          "disponible": 15,
+          "FechaIngreso": "2026-10-14T06:23:44.5566667",
+          "FechaCaducidad": "2026-10-29",
+          "diasParaVencer": 5,
+          "CostoUnitario": 0.85
+        },
+        {
+          "loteId": 2,
+          "NumeroLote": "LOT-001-B",
+          "Cantidad": 20,
+          "CantidadReservada": 0,
+          "disponible": 20,
+          "FechaIngreso": "2026-10-19T06:23:44.5566667",
+          "FechaCaducidad": "2026-11-13",
+          "diasParaVencer": 20,
+          "CostoUnitario": 0.85
+        }
+      ]
+    },
+    {
+      "productoId": 4,
+      "SKU": "PRD-004",
+      "Nombre": "Mantequilla 250g",
+      "Descripcion": "Mantequilla sin sal en barra",
+      "Categoria": "Lácteos",
+      "PrecioBase": 3.2,
+      "stockDisponible": 100,
+      "stockBruto": 100,
+      "stockReservado": 0,
+      "numeroLotes": 2,
+      "valorCosto": 220,
+      "valorPrecioBase": 320,
+      "proximaFechaCaducidad": "2026-11-23T00:00:00.000Z",
+      "diasAlProximoVencimiento": 30,
+      "ventas7Dias": 0,
+      "estado": "normal",
+      "lotes": [
+        {
+          "loteId": 8,
+          "NumeroLote": "LOT-004-A",
+          "Cantidad": 60,
+          "CantidadReservada": 0,
+          "disponible": 60,
+          "FechaIngreso": "2026-10-16T06:23:44.5566667",
+          "FechaCaducidad": "2026-11-23",
+          "diasParaVencer": 30,
+          "CostoUnitario": 2.2
+        },
+        {
+          "loteId": 9,
+          "NumeroLote": "LOT-004-B",
+          "Cantidad": 40,
+          "CantidadReservada": 0,
+          "disponible": 40,
+          "FechaIngreso": "2026-10-22T06:23:44.5566667",
+          "FechaCaducidad": "2027-01-22",
+          "diasParaVencer": 90,
+          "CostoUnitario": 2.2
+        }
+      ]
+    },
+    {
+      "productoId": 2,
+      "SKU": "PRD-002",
+      "Nombre": "Queso Mozzarella 500g",
+      "Descripcion": "Queso mozzarella fresco en bloque de 500g",
+      "Categoria": "Lácteos",
+      "PrecioBase": 4.5,
+      "stockDisponible": 200,
+      "stockBruto": 200,
+      "stockReservado": 0,
+      "numeroLotes": 2,
+      "valorCosto": 620,
+      "valorPrecioBase": 900,
+      "proximaFechaCaducidad": "2026-11-01T00:00:00.000Z",
+      "diasAlProximoVencimiento": 8,
+      "ventas7Dias": 0,
+      "estado": "normal",
+      "lotes": [
+        {
+          "loteId": 3,
+          "NumeroLote": "LOT-002-A",
+          "Cantidad": 80,
+          "CantidadReservada": 0,
+          "disponible": 80,
+          "FechaIngreso": "2026-10-09T06:23:44.5566667",
+          "FechaCaducidad": "2026-11-01",
+          "diasParaVencer": 8,
+          "CostoUnitario": 3.1
+        },
+        {
+          "loteId": 4,
+          "NumeroLote": "LOT-002-B",
+          "Cantidad": 120,
+          "CantidadReservada": 0,
+          "disponible": 120,
+          "FechaIngreso": "2026-10-21T06:23:44.5566667",
+          "FechaCaducidad": "2026-12-08",
+          "diasParaVencer": 45,
+          "CostoUnitario": 3.1
+        }
+      ]
+    },
+    {
+      "productoId": 3,
+      "SKU": "PRD-003",
+      "Nombre": "Yogur Natural 400g",
+      "Descripcion": "Yogur natural sin azúcar añadida",
+      "Categoria": "Lácteos",
+      "PrecioBase": 2.8,
+      "stockDisponible": 450,
+      "stockBruto": 450,
+      "stockReservado": 0,
+      "numeroLotes": 3,
+      "valorCosto": 855,
+      "valorPrecioBase": 1260,
+      "proximaFechaCaducidad": "2026-10-27T00:00:00.000Z",
+      "diasAlProximoVencimiento": 3,
+      "ventas7Dias": 3,
+      "estado": "caducidad_critica",
+      "lotes": [
+        {
+          "loteId": 5,
+          "NumeroLote": "LOT-003-A",
+          "Cantidad": 100,
+          "CantidadReservada": 0,
+          "disponible": 100,
+          "FechaIngreso": "2026-10-04T06:23:44.5566667",
+          "FechaCaducidad": "2026-10-27",
+          "diasParaVencer": 3,
+          "CostoUnitario": 1.9
+        },
+        {
+          "loteId": 6,
+          "NumeroLote": "LOT-003-B",
+          "Cantidad": 150,
+          "CantidadReservada": 0,
+          "disponible": 150,
+          "FechaIngreso": "2026-10-17T06:23:44.5566667",
+          "FechaCaducidad": "2026-11-05",
+          "diasParaVencer": 12,
+          "CostoUnitario": 1.9
+        },
+        {
+          "loteId": 7,
+          "NumeroLote": "LOT-003-C",
+          "Cantidad": 200,
+          "CantidadReservada": 0,
+          "disponible": 200,
+          "FechaIngreso": "2026-10-23T06:23:44.5566667",
+          "FechaCaducidad": "2026-12-23",
+          "diasParaVencer": 60,
+          "CostoUnitario": 1.9
+        }
+      ]
+    },
+    {
+      "productoId": 7,
+      "SKU": "PRD-007",
+      "Nombre": "Pan Integral 500g",
+      "Descripcion": "Pan integral de trigo con semillas",
+      "Categoria": "Panadería",
+      "PrecioBase": 1.8,
+      "stockDisponible": 80,
+      "stockBruto": 80,
+      "stockReservado": 0,
+      "numeroLotes": 2,
+      "valorCosto": 88,
+      "valorPrecioBase": 144,
+      "proximaFechaCaducidad": "2026-10-26T00:00:00.000Z",
+      "diasAlProximoVencimiento": 2,
+      "ventas7Dias": 0,
+      "estado": "caducidad_critica",
+      "lotes": [
+        {
+          "loteId": 13,
+          "NumeroLote": "LOT-007-A",
+          "Cantidad": 30,
+          "CantidadReservada": 0,
+          "disponible": 30,
+          "FechaIngreso": "2026-10-21T06:23:44.5600000",
+          "FechaCaducidad": "2026-10-26",
+          "diasParaVencer": 2,
+          "CostoUnitario": 1.1
+        },
+        {
+          "loteId": 14,
+          "NumeroLote": "LOT-007-B",
+          "Cantidad": 50,
+          "CantidadReservada": 0,
+          "disponible": 50,
+          "FechaIngreso": "2026-10-23T06:23:44.5600000",
+          "FechaCaducidad": "2026-10-31",
+          "diasParaVencer": 7,
+          "CostoUnitario": 1.1
+        }
+      ]
+    }
+  ]
+}

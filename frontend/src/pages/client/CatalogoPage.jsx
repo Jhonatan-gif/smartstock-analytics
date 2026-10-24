@@ -10,7 +10,6 @@ import { useAuth } from '../../context/AuthContext';
 function PriceVariationBadge({ pct }) {
   if (!pct) return null;
   const isDown = pct < 0;
-  const isUp   = pct > 0;
   if (Math.abs(pct) < 0.5) return null;
 
   return (
@@ -23,7 +22,6 @@ function PriceVariationBadge({ pct }) {
 }
 
 function ProductCard({ producto }) {
-  const { pct } = {};
   const variacion = producto.porcentajeVariacion || producto.PorcentajeVariacion || 0;
   const precio    = producto.precio             || producto.PrecioFinal           || 0;
   const precioBase= producto.PrecioBase         || producto.precioBase            || 0;

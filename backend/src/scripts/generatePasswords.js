@@ -49,7 +49,7 @@ async function generateAndUpdate() {
     await closePool();
     console.log('\n✅ Todos los hashes actualizados correctamente');
   } catch (err) {
-    console.log('\n⚠️  No se pudo conectar a la BD. Usa los hashes SQL de arriba manualmente.');
+    console.log(`\n⚠️  No se pudo conectar a la BD (${err.message}). Usa los hashes SQL de arriba manualmente.`);
   }
 }
 

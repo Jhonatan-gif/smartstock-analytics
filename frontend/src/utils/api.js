@@ -9,7 +9,10 @@ const api = axios.create({
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401) {
+    // Un 401 del propio login son credenciales inválidas: lo muestra LoginPage,
+    // no hay sesión que cerrar (redirigir recargaría la página y ocultaría el error)
+    const esLogin = error.config?.url?.includes('/auth/login');
+    if (error.response?.status === 401 && !esLogin) {
       localStorage.removeItem('token');
       localStorage.removeItem('user');
       delete api.defaults.headers.common['Authorization'];
