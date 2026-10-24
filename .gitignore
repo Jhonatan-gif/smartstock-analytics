@@ -34,5 +34,5 @@ Thumbs.db
 ## CI: reportes de pruebas y cobertura
 coverage/
 reports/
-cypress/videos/
-cypress/screenshots/
+**/cypress/videos/
+**/cypress/screenshots/
