@@ -12,6 +12,11 @@ fi
 echo "Esperando a SonarQube..."
 until curl -fs "$SONAR/api/system/status" | grep -q '"status":"UP"'; do sleep 5; done
 
+# Jenkins está en la red privada de Docker (172.x): SonarQube rechaza por defecto
+# webhooks a direcciones privadas (protección SSRF). Solo para este laboratorio local.
+curl -fsS -u "$SONAR_TOKEN:" -X POST "$SONAR/api/settings/set" \
+     -d "key=sonar.validateWebhooks" -d "value=false" && echo "Validación de webhooks a red privada desactivada"
+
 if curl -fs -u "$SONAR_TOKEN:" "$SONAR/api/webhooks/list" | grep -q "$HOOK_URL"; then
   echo "Webhook a Jenkins ya registrado"
 else
