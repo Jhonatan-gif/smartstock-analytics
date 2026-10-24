@@ -167,6 +167,8 @@ Ya aplicadas: `backend/Dockerfile` (puerto 3001), `frontend/Dockerfile` (sin des
 ---
 
 ## 6. Guion de demostración (capturas para el informe)
+
+> Guion para presentar **en vivo**, con comandos listos y chequeo previo: [demo/DEMO.md](demo/DEMO.md).
 1. **Push a `feature/login-ui` cambiando sólo el frontend** → etapas backend *skipped*, sin Sonar ni Docker (ejecución selectiva).
 2. **Repetir el build** → `♻️ Cache HIT` y menor duración de *Instalar dependencias* (caché).
 3. **Abrir PR `feature/* → develop`** → aparecen Sonar + Quality Gate; GitHub muestra ● pending y luego ✔/✖ (post + notificación).
